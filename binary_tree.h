@@ -55,7 +55,7 @@ private:
                 if (left == nullptr) {
                     left = new Node(data_);
                     if (left == nullptr) {
-                        throw std::out_of_range("Error");
+                        throw std::out_of_range("Allocation Error");
                     }
                 } else {
                     left->insert(data_);
@@ -64,7 +64,7 @@ private:
                 if (right == nullptr) {
                     right = new Node(data_);
                     if (right == nullptr) {
-                        throw std::out_of_range("Error");
+                        throw std::out_of_range("Allocation Error");
                     }
                 } else {
                     right->insert(data_);
@@ -132,7 +132,7 @@ void structures::BinaryTree<T>::insert(const T& data) {
     if (empty()) {
         root = new Node(data);
         if (root == nullptr) {
-            throw std::out_of_range("Error");
+            throw std::out_of_range("Allocation Error");
         }
     } else {
         root->insert(data);
@@ -143,7 +143,7 @@ void structures::BinaryTree<T>::insert(const T& data) {
 template<typename T>
 void structures::BinaryTree<T>::remove(const T& data) {
     if (empty()) {
-        throw std::out_of_range("Error");
+        throw std::out_of_range("Tree is Empty");
     }
     if (size() > 1) {
         root->remove(data, root);
