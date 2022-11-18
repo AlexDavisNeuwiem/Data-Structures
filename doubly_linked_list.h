@@ -1,4 +1,4 @@
-// Copyright [2018] <Alex Davis Neuwiem da Silva>
+// Copyright [2022] <Alex Davis Neuwiem da Silva>
 
 namespace structures {
 
@@ -8,23 +8,23 @@ class DoublyLinkedList {
     DoublyLinkedList();
     ~DoublyLinkedList();
     void clear();
-    void push_back(const T& data);  // insere no fim
-    void push_front(const T& data);  // insere no início
-    void insert(const T& data, std::size_t index);  // insere na posição
-    void insert_sorted(const T& data);  // insere em ordem
-    T pop(std::size_t index);  // retira da posição
-    T pop_back();  // retira do fim
-    T pop_front();  // retira do início
-    void remove(const T& data);  // retira específico
-    bool empty() const;  // lista vazia
-    bool contains(const T& data) const;  // contém
-    T& at(std::size_t index);  // acesso a um elemento (checando limites)
-    const T& at(std::size_t index) const;  // getter constante a um elemento
-    std::size_t find(const T& data) const;  // posição de um dado
-    std::size_t size() const;  // tamanho
+    void push_back(const T& data);
+    void push_front(const T& data);
+    void insert(const T& data, std::size_t index);
+    void insert_sorted(const T& data);
+    T pop(std::size_t index);
+    T pop_back();
+    T pop_front();
+    void remove(const T& data);
+    bool empty() const;
+    bool contains(const T& data) const;
+    T& at(std::size_t index);
+    const T& at(std::size_t index) const;
+    std::size_t find(const T& data) const;
+    std::size_t size() const;
 
  private:
-    class Node {  // implementar cada um dos métodos de Node
+    class Node {
      public:
         explicit Node(const T& data) {
             data_ = data;
@@ -69,8 +69,8 @@ class DoublyLinkedList {
         Node* next_{nullptr};
     };
 
-    Node* head{nullptr};  // primeiro da lista
-    Node* tail{nullptr};  // ultimo da lista
+    Node* head{nullptr};
+    Node* tail{nullptr};
     std::size_t size_{0u};
 };
 
@@ -105,7 +105,7 @@ void structures::DoublyLinkedList<T>::push_back(const T& data) {
     }
     Node* new_node = new Node(data);
     if (new_node == nullptr) {
-        throw std::out_of_range("deu problema");
+        throw std::out_of_range("Allocation Error");
     }
     new_node->prev(tail);
     tail->next(new_node);
@@ -118,7 +118,7 @@ void structures::DoublyLinkedList<T>::push_front(const T& data) {
     Node* new_node;
     new_node = new Node(data);
     if (new_node == nullptr) {
-        throw std::out_of_range("deu problema");
+        throw std::out_of_range("Allocation Error");
     }
     new_node->prev(nullptr);
     new_node->next(head);
@@ -140,10 +140,13 @@ void structures::DoublyLinkedList<T>::insert(const T& data, std::size_t index) {
         return push_back(data);
     }
     if (index >= size()) {
-        throw std::out_of_range("deu problema");
+        throw std::out_of_range("Index Error");
     }
     Node* pos;
     Node* new_node = new Node(data);
+    if (new_node == nullptr) {
+        throw std::out_of_range("Allocation Error");
+    }
     if (index < size()/2) {
         pos = head;
         for (std::size_t i = 1; i < index; i++) {
@@ -167,7 +170,7 @@ void structures::DoublyLinkedList<T>::insert_sorted(const T& data) {
     Node* pos1 = head;
     Node* new_node = new Node(data);
     if (new_node == nullptr) {
-        throw std::out_of_range("deu problema");
+        throw std::out_of_range("Allocation Error");
     }
     for (std::size_t i = 0; i < size(); i++) {
         if (pos1->data() > data) {
@@ -192,7 +195,7 @@ void structures::DoublyLinkedList<T>::insert_sorted(const T& data) {
 template<typename T>
 T structures::DoublyLinkedList<T>::pop(std::size_t index) {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("List is Empty");
     }
     if (size() == 1 || index == 0) {
         return pop_front();
@@ -201,7 +204,7 @@ T structures::DoublyLinkedList<T>::pop(std::size_t index) {
         return pop_back();
     }
     if (index >= size()) {
-        throw std::out_of_range("deu problema");
+        throw std::out_of_range("Index Error");
     }
     Node* pos;
     if (index < size()/2) {
@@ -227,7 +230,7 @@ T structures::DoublyLinkedList<T>::pop(std::size_t index) {
 template<typename T>
 T structures::DoublyLinkedList<T>::pop_back() {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("List is Empty");
     }
     if (size() == 1) {
         return pop_front();
@@ -244,7 +247,7 @@ T structures::DoublyLinkedList<T>::pop_back() {
 template<typename T>
 T structures::DoublyLinkedList<T>::pop_front() {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("List is Empty");
     }
     T out;
     Node* aux;
@@ -265,7 +268,7 @@ T structures::DoublyLinkedList<T>::pop_front() {
 template<typename T>
 void structures::DoublyLinkedList<T>::remove(const T& data) {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("List is Empty");
     }
     std::size_t i = find(data);
     if (i != size()) {
@@ -285,7 +288,7 @@ bool structures::DoublyLinkedList<T>::empty() const {
 template<typename T>
 bool structures::DoublyLinkedList<T>::contains(const T& data) const {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("List is Empty");
     }
     Node* pos = head;
     for (std::size_t i = 0; i < size(); i++) {
@@ -300,7 +303,7 @@ bool structures::DoublyLinkedList<T>::contains(const T& data) const {
 template<typename T>
 T& structures::DoublyLinkedList<T>::at(std::size_t index) {
     if (index >= size() || index < 0) {
-        throw std::out_of_range("erro de posição");
+        throw std::out_of_range("Index Error");
     }
     Node* pos = head;
     for (std::size_t i = 0; i < index; i++) {
@@ -312,7 +315,7 @@ T& structures::DoublyLinkedList<T>::at(std::size_t index) {
 template<typename T>
 const T& structures::DoublyLinkedList<T>::at(std::size_t index) const {
     if (index >= size() || index < 0) {
-        throw std::out_of_range("erro de posição");
+        throw std::out_of_range("Index Error");
     }
     Node* pos = head;
     for (std::size_t i = 0; i < index; i++) {
@@ -324,7 +327,7 @@ const T& structures::DoublyLinkedList<T>::at(std::size_t index) const {
 template<typename T>
 std::size_t structures::DoublyLinkedList<T>::find(const T& data) const {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("List is Empty");
     }
     Node* pos = head;
     for (std::size_t i = 0; i < size(); i++) {
