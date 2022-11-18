@@ -1,37 +1,25 @@
-// Copyright [2019] <Alex Davis Neuwiem da Silva>
+// Copyright [2022] <Alex Davis Neuwiem da Silva>
 #ifndef STRUCTURES_ARRAY_STACK_H
 #define STRUCTURES_ARRAY_STACK_H
 
-#include <cstdint>  // std::size_t
-#include <stdexcept>  // C++ exceptions
+#include <cstdint>
+#include <stdexcept>
 
 namespace structures {
 
 template<typename T>
-//! CLASSE PILHA
 class ArrayStack {
  public:
-    //! construtor simples
     ArrayStack();
-    //! construtor com parametro tamanho
     explicit ArrayStack(std::size_t max);
-    //! destrutor
     ~ArrayStack();
-    //! metodo empilha
     void push(const T& data);
-    //! metodo desempilha
     T pop();
-    //! metodo retorna o topo
     T& top();
-    //! metodo limpa pilha
     void clear();
-    //! metodo retorna tamanho
     std::size_t size();
-    //! metodo retorna capacidade maxima
     std::size_t max_size();
-    //! verifica se esta vazia
     bool empty();
-    //! verifica se esta cheia
     bool full();
 
  private:
@@ -69,7 +57,7 @@ structures::ArrayStack<T>::~ArrayStack() {
 template<typename T>
 void structures::ArrayStack<T>::push(const T& data) {
     if (full())
-        throw std::out_of_range("pilha cheia");
+        throw std::out_of_range("Stack is Full");
     top_++;
     contents[top_] = data;
 }
@@ -77,7 +65,7 @@ void structures::ArrayStack<T>::push(const T& data) {
 template<typename T>
 T structures::ArrayStack<T>::pop() {
     if (empty())
-        throw std::out_of_range("pilha vazia");
+        throw std::out_of_range("Stack is Empty");
     T aux;
     aux = contents[top_];
     top_--;
@@ -87,7 +75,7 @@ T structures::ArrayStack<T>::pop() {
 template<typename T>
 T& structures::ArrayStack<T>::top() {
     if (empty())
-        throw std::out_of_range("pilha vazia");
+        throw std::out_of_range("Stack is Empty");
     return contents[top_];
 }
 
