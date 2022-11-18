@@ -1,24 +1,27 @@
-// Copyright [2022] <Alex Davis Neuwiem da Silva e Pedro Philippi Araujo>
+// Copyright [2022] <Alex Davis Neuwiem da Silva>
+
 #include <iostream>
-#include "./ArrayStack.h"
-#include "./ArrayQueue.h"
 #include <cstring>
 #include <fstream>
+
+#include "./ArrayStack.h"
+#include "./ArrayQueue.h"
+
 using namespace std;
 
 int main() {
 
     char xmlfilename[100];
-    std::cin >> xmlfilename;  // Entrada
+    std::cin >> xmlfilename;
     
     ifstream arquivo_xml_01;
     arquivo_xml_01.open(xmlfilename);
     
     string linha;  // Linha a ser percorrida
         
-    structures::ArrayStack<string> pilha(100);  // Declaração da pilha
-    structures::ArrayQueue<int> filx(100);      // Declaração da fila que contém x
-    structures::ArrayQueue<int> fily(100);      // Declaração da fila que contém y
+    structures::ArrayStack<string> pilha(100);
+    structures::ArrayQueue<int> filx(100);
+    structures::ArrayQueue<int> fily(100);
     
     string data;
     string name;
@@ -27,25 +30,23 @@ int main() {
     string texto;
     bool escrever = false;
     bool error = false;
-    
-    // INICIO DO PROBLEMA 01
 
-    while (getline(arquivo_xml_01, linha)) {                        // Percorre o Arquivo enquanto houverem linhas
-        for (int i = 0; i < linha.length(); i++) {                  // Percorre cada linha
-            if (linha[i] == '<' && linha[i + 1] != '/') {           // Se não for uma tag de fechamento
+    while (getline(arquivo_xml_01, linha)) {
+        for (int i = 0; i < linha.length(); i++) {
+            if (linha[i] == '<' && linha[i + 1] != '/') {
                 int j = 1;
                 string tag = "";
-                while (linha[i + j] != '>') {                       // Percorre a linha para encontar o nome da tag
-                    tag = tag + linha[i + j];                       // Concatena o nome na variável "tag"
+                while (linha[i + j] != '>') {
+                    tag = tag + linha[i + j];
                     j++;
                 }
                 pilha.push(tag);
                 i = i + j;
-            } else if (linha[i] == '<' && linha[i + 1] == '/') {    // Se for uma tag de fechamento
+            } else if (linha[i] == '<' && linha[i + 1] == '/') {
                 int j = 2;
                 string tag = "";
-                while (linha[i + j] != '>') {                       // Percorre a linha para encontar o nome da tag
-                    tag = tag + linha[i + j];                       // Concatena o nome na variável "tag"
+                while (linha[i + j] != '>') {
+                    tag = tag + linha[i + j];
                     j++;
                 }
                 if (pilha.top() == tag) {
@@ -63,8 +64,6 @@ int main() {
         cout << "error" << endl;
     }
 
-    // FIM DO PROBLEMA 01
-    
     arquivo_xml_01.close();
     
     linha = "";
@@ -72,27 +71,25 @@ int main() {
     ifstream arquivo_xml_02;
     arquivo_xml_02.open(xmlfilename);
     
-    // INICIO DO PROBLEMA 02
-    
     if (error == false) {
-        while (getline(arquivo_xml_02, linha)) {                        // Percorre o Arquivo enquanto houverem linhas
-            for (int i = 0; i < linha.length(); i++) {                  // Percorre cada linha
-                if (linha[i] == '<' && linha[i + 1] != '/') {           // Se não for uma tag de fechamento
+        while (getline(arquivo_xml_02, linha)) {
+            for (int i = 0; i < linha.length(); i++) {
+                if (linha[i] == '<' && linha[i + 1] != '/') {
                     int j = 1;
                     string tag = "";
-                    while (linha[i + j] != '>') {                       // Percorre a linha para encontar o nome da tag
-                        tag = tag + linha[i + j];                       // Concatena o nome na variável "tag"
+                    while (linha[i + j] != '>') {
+                        tag = tag + linha[i + j];
                         j++;
                     }
                     if (tag == "name" || tag == "height" || tag == "width" || tag == "data") {
                         escrever = true;
                     }
                     i = i + j;
-                } else if (linha[i] == '<' && linha[i + 1] == '/') {    // Se for uma tag de fechamento
+                } else if (linha[i] == '<' && linha[i + 1] == '/') {
                     int j = 2;
                     string tag = "";
-                    while (linha[i + j] != '>') {                       // Percorre a linha para encontar o nome da tag
-                        tag = tag + linha[i + j];                       // Concatena o nome na variável "tag"
+                    while (linha[i + j] != '>') {
+                        tag = tag + linha[i + j];
                         j++;
                     }
                     texto = texto.erase(0,1);
@@ -138,8 +135,6 @@ int main() {
                                     fily.enqueue(l);
                                     R[k][l] = rotulo;
                                     
-                                    // COMEÇO FLOOD FILL
-                                    
                                     while (filx.empty() == false) {
                                         for (int m = 0; m < filx.size(); m++) {
                                             int x = filx.dequeue();
@@ -176,23 +171,17 @@ int main() {
                                         }
                                     }
                                     rotulo++;
-                                    
-                                    // FIM FLOOD FILL
-                                    
                                 }
                             }
                         }
             
                         std::cout << name << " " << rotulo - 1 << std::endl;
-                        
-                        // Resetar aqui as variáveis globais
                         name = "";
                         data = "";
                         height = 0;
                         width = 0;
                         filx.clear();
                         fily.clear();
-                        
                     }
                     i = i + j;
                 }
@@ -202,8 +191,6 @@ int main() {
             }
         }
     }
-    
-    // FIM DO PROBLEMA 02
 
     arquivo_xml_02.close();
 
