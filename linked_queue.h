@@ -101,6 +101,9 @@ void structures::LinkedQueue<T>::clear() {
 template<typename T>
 void structures::LinkedQueue<T>::enqueue(const T& data) {
     Node* new_node = new Node(data);
+    if (new_node == nullptr) {
+        throw std::out_of_range("Allocation Error");
+    }
     if (!empty()) {
         tail -> next(new_node);
     } else {
