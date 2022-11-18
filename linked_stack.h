@@ -1,3 +1,5 @@
+// Copyright [2022] <Alex Davis Neuwiem da Silva>
+
 namespace structures {
 
 template<typename T>
@@ -7,17 +9,17 @@ class LinkedStack {
 
     ~LinkedStack();
 
-    void clear();  // limpa pilha
+    void clear();
 
-    void push(const T& data);  // empilha
+    void push(const T& data);
 
-    T pop();  // desempilha
+    T pop();
 
-    T& top() const;  // dado no topo
+    T& top() const;
 
-    bool empty() const;  // pilha vazia
+    bool empty() const;
 
-    std::size_t size() const;  // tamanho da pilha
+    std::size_t size() const;
 
  private:
     class Node {
@@ -51,8 +53,8 @@ class LinkedStack {
         Node* next_{nullptr};
     };
 
-    Node* top_;  // nodo-topo
-    std::size_t size_;  // tamanho
+    Node* top_;
+    std::size_t size_;
 };
 
 }  // namespace structures
@@ -83,7 +85,7 @@ template<typename T>
 void structures::LinkedStack<T>::push(const T& data) {
     Node* new_node = new Node(data);
     if (new_node == nullptr) {
-        throw std::out_of_range("deu problema");
+        throw std::out_of_range("Allocation Error");
     }
     new_node->next(top_);
     top_ = new_node;
@@ -93,7 +95,7 @@ void structures::LinkedStack<T>::push(const T& data) {
 template<typename T>
 T structures::LinkedStack<T>::pop() {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("Stack is Empty");
     }
     T out = top_->data();
     if (size() == 1) {
@@ -108,7 +110,7 @@ T structures::LinkedStack<T>::pop() {
 template<typename T>
 T& structures::LinkedStack<T>::top() const {
     if (empty()) {
-        throw std::out_of_range("pilha vazia");
+        throw std::out_of_range("Stack is Empty");
     }
     return top_->data();
 }
