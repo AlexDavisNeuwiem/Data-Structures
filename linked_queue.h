@@ -1,4 +1,4 @@
-// Copyright [2018] <Alex Davis Neuwiem da Silva>
+// Copyright [2022] <Alex Davis Neuwiem da Silva>
 
 namespace structures {
 
@@ -10,22 +10,22 @@ class LinkedQueue {
 
     ~LinkedQueue();
 
-    void clear();  // limpar
+    void clear();
 
-    void enqueue(const T& data);  // enfilerar
+    void enqueue(const T& data);
 
-    T dequeue();  // desenfilerar
+    T dequeue();
 
-    T& front() const;  // primeiro dado
+    T& front() const;
 
-    T& back() const;  // último dado
+    T& back() const;
 
-    bool empty() const;  // fila vazia
+    bool empty() const;
 
-    std::size_t size() const;  // tamanho
+    std::size_t size() const;
 
  private:
-    class Node {  // implementar cada um dos métodos de Node
+    class Node {
      public:
         explicit Node(const T& data) {
             data_ = data;
@@ -70,8 +70,8 @@ class LinkedQueue {
         Node* next_{nullptr};
     };
 
-    Node* head{nullptr};  // primeiro da lista
-    Node* tail{nullptr};  // ultimo da lista
+    Node* head{nullptr};
+    Node* tail{nullptr};
     std::size_t size_{0u};
 };
 
@@ -114,7 +114,7 @@ void structures::LinkedQueue<T>::enqueue(const T& data) {
 template<typename T>
 T structures::LinkedQueue<T>::dequeue() {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("Queue is Empty");
     }
     T out;
     Node* aux;
@@ -135,7 +135,7 @@ T structures::LinkedQueue<T>::dequeue() {
 template<typename T>
 T& structures::LinkedQueue<T>::front() const {
     if (empty()) {
-        throw std::out_of_range("fila vazia");
+        throw std::out_of_range("Queue is Empty");
     }
     return head->data();
 }
@@ -143,7 +143,7 @@ T& structures::LinkedQueue<T>::front() const {
 template<typename T>
 T& structures::LinkedQueue<T>::back() const {
     if (empty()) {
-        throw std::out_of_range("fila vazia");
+        throw std::out_of_range("Queue is Empty");
     }
     return tail->data();
 }
