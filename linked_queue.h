@@ -2,7 +2,6 @@
 
 namespace structures {
 
-
 template<typename T>
 class LinkedQueue {
  public:
