@@ -1,45 +1,33 @@
-// Copyright [2018] <Alex Davis Neuwiem da Silva>
+// Copyright [2022] <Alex Davis Neuwiem da Silva>
 #ifndef STRUCTURES_ARRAY_QUEUE_H
 #define STRUCTURES_ARRAY_QUEUE_H
 
-#include <cstdint>  // std::size_t
-#include <stdexcept>  // C++ Exceptions
+#include <cstdint>
+#include <stdexcept>
 
 namespace structures {
 
 template<typename T>
-//! classe ArrayQueue
 class ArrayQueue {
  public:
-    //! construtor padrao
     ArrayQueue();
-    //! construtor com parametro
     explicit ArrayQueue(std::size_t max);
-    //! destrutor padrao
     ~ArrayQueue();
-    //! metodo enfileirar
     void enqueue(const T& data);
-    //! metodo desenfileirar
     T dequeue();
-    //! metodo retorna o ultimo
     T& back();
-    //! metodo limpa a fila
     void clear();
-    //! metodo retorna tamanho atual
     std::size_t size();
-    //! metodo retorna tamanho maximo
     std::size_t max_size();
-    //! metodo verifica se vazio
     bool empty();
-    //! metodo verifica se esta cheio
     bool full();
 
  private:
     T* contents;
     std::size_t size_;
     std::size_t max_size_;
-    int begin_;  // indice do inicio (para fila circular)
-    int end_;  // indice do fim (para fila circular)
+    int begin_;
+    int end_;
     static const auto DEFAULT_SIZE = 10u;
 };
 
@@ -75,7 +63,7 @@ structures::ArrayQueue<T>::~ArrayQueue() {
 template<typename T>
 void structures::ArrayQueue<T>::enqueue(const T& data) {
     if (full()) {
-        throw std::out_of_range("fila cheia");
+        throw std::out_of_range("Queue is Full");
     }
     end_ = (end_ + 1) % max_size_;
     size_++;
@@ -85,7 +73,7 @@ void structures::ArrayQueue<T>::enqueue(const T& data) {
 template<typename T>
 T structures::ArrayQueue<T>::dequeue() {
     if (empty()) {
-        throw std::out_of_range("fila vazia");
+        throw std::out_of_range("Queue is Empty");
     }
     T aux;
     aux = contents[begin_];
@@ -97,7 +85,7 @@ T structures::ArrayQueue<T>::dequeue() {
 template<typename T>
 T& structures::ArrayQueue<T>::back() {
     if (empty()) {
-        throw std::out_of_range("fila vazia");
+        throw std::out_of_range("Queue is Empty");
     }
     return contents[end_];
 }
