@@ -164,6 +164,7 @@ void structures::DoublyLinkedList<T>::insert(const T& data, std::size_t index) {
     pos->next(new_node);
     size_++;
 }
+
 template<typename T>
 void structures::DoublyLinkedList<T>::insert_sorted(const T& data) {
     Node* pos0 = nullptr;
