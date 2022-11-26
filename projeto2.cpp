@@ -1,4 +1,4 @@
-// Copyright [2022] <Alex Davis Neuwiem da Silva e Pedro Philippi Araujo>
+// Copyright [2022] <Alex Davis Neuwiem da Silva>
 #include <iostream>
 #include <cstring>
 #include <fstream>
