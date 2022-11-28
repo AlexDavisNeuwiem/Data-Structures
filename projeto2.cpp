@@ -28,7 +28,7 @@ void insert(struct Node* root, string word, int length, int position) {
     struct Node* ptr = root;
     for (int i = 0; i < word.length(); i++) {
         int index = word[i] - 'a';
-        if (!ptr->children[index]) {
+        if (ptr->children[index] == NULL) {
             ptr->letter = word[i];
             ptr->children[index] = getNode();
         }
